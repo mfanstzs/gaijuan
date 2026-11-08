@@ -1,0 +1,798 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "DeskGrade grading record and export v2",
+  "description": "Stored response and platform facts are independent. This audit format is never sent as model instructions. Unknown totals remain null. Synthetic example is documentation, not test evidence.",
+  "oneOf": [
+    {
+      "$ref": "#/$defs/record"
+    },
+    {
+      "$ref": "#/$defs/export"
+    }
+  ],
+  "$defs": {
+    "record": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schemaVersion",
+        "attemptId",
+        "captureId",
+        "runId",
+        "answerId",
+        "questionId",
+        "state",
+        "score",
+        "javaValidatedTotal",
+        "submissionPrepared",
+        "submitSent",
+        "confirmedAt",
+        "captureSha256",
+        "capturedAt",
+        "imagePersistence",
+        "actionEpoch",
+        "ruleRevision",
+        "modelRevision",
+        "platformRevision",
+        "configuration",
+        "questionSnapshot",
+        "standardAnswer",
+        "rubricSnapshot",
+        "modelSnapshot",
+        "gradingResult",
+        "acceptedRequestId",
+        "input",
+        "submission",
+        "modelCalls",
+        "events"
+      ],
+      "properties": {
+        "schemaVersion": {
+          "const": 2
+        },
+        "attemptId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "captureId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "runId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "answerId": {
+          "type": "string"
+        },
+        "questionId": {
+          "type": "string"
+        },
+        "state": {
+          "type": "string"
+        },
+        "score": {
+          "anyOf": [
+            {
+              "type": "number",
+              "minimum": 0
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "javaValidatedTotal": {
+          "anyOf": [
+            {
+              "type": "number",
+              "minimum": 0
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "submissionPrepared": {
+          "type": "boolean"
+        },
+        "submitSent": {
+          "type": "boolean",
+          "description": "Legacy dispatch-prepared flag; not proof the platform received input."
+        },
+        "confirmedAt": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "date-time"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "Legacy progress timestamp. Interpret using submission.confirmationKind: INPUT_DISPATCHED and SCREEN_TRANSITION are not platform acknowledgements."
+        },
+        "captureSha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "capturedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "imagePersistence": {
+          "enum": [
+            "NOT_STORED",
+            "LEGACY_REFERENCE_PRESERVED"
+          ]
+        },
+        "actionEpoch": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "ruleRevision": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "modelRevision": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "platformRevision": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "configuration": {
+          "type": "object",
+          "description": "Immutable application snapshot, including raw grading instructions, access owner, model and binding metadata; no credentials or image bytes."
+        },
+        "questionSnapshot": {
+          "anyOf": [
+            {
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "standardAnswer": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "rubricSnapshot": {
+          "anyOf": [
+            {
+              "type": [
+                "object",
+                "array",
+                "string"
+              ]
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "modelSnapshot": {
+          "anyOf": [
+            {
+              "type": [
+                "object",
+                "array",
+                "string"
+              ]
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "gradingResult": {
+          "anyOf": [
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "source",
+                "result"
+              ],
+              "properties": {
+                "source": {
+                  "enum": [
+                    "MOCK",
+                    "LIVE"
+                  ]
+                },
+                "result": {
+                  "$ref": "grade-result.schema.json"
+                }
+              }
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "acceptedRequestId": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "uuid"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "input": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "javaTotal",
+            "readbackScore",
+            "readbackAt",
+            "status"
+          ],
+          "properties": {
+            "javaTotal": {
+              "anyOf": [
+                {
+                  "type": "number",
+                  "minimum": 0
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "readbackScore": {
+              "anyOf": [
+                {
+                  "type": "number",
+                  "minimum": 0
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "readbackAt": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "date-time"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "status": {
+              "enum": [
+                "NO_MATCHED_READBACK_RECORDED",
+                "READBACK_MATCHED"
+              ]
+            }
+          }
+        },
+        "submission": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "status",
+            "intentPrepared",
+            "dispatchPrepared",
+            "confirmedAt",
+            "note"
+          ],
+          "properties": {
+            "status": {
+              "enum": [
+                "NOT_PREPARED",
+                "UNKNOWN",
+                "CONFIRMED",
+                "VISUALLY_ADVANCED",
+                "SUBMIT_CLICKED"
+              ]
+            },
+            "intentPrepared": {
+              "type": "boolean"
+            },
+            "dispatchPrepared": {
+              "type": "boolean"
+            },
+            "confirmedAt": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "date-time"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Legacy timestamp of the reported confirmation kind, including observation time for visual progress."
+            },
+            "note": {
+              "type": "string"
+            },
+            "confirmationKind": {
+              "enum": [
+                "PLATFORM_ACK",
+                "SCREEN_TRANSITION",
+                "INPUT_DISPATCHED",
+                null
+              ],
+              "description": "Present in new records. SCREEN_TRANSITION is observed visual progress. INPUT_DISPATCHED is only a completed submit click. Neither asserts platform acceptance; null means no confirmation event is recorded."
+            },
+            "platformConfirmed": {
+              "type": "boolean",
+              "description": "True only for an explicit platform acknowledgement. Always false for manual-coordinate visual progress."
+            }
+          },
+          "allOf": [
+            {
+              "if": {
+                "properties": {
+                  "status": {
+                    "const": "VISUALLY_ADVANCED"
+                  }
+                }
+              },
+              "then": {
+                "required": [
+                  "confirmationKind",
+                  "platformConfirmed"
+                ],
+                "properties": {
+                  "confirmationKind": {
+                    "const": "SCREEN_TRANSITION"
+                  },
+                  "platformConfirmed": {
+                    "const": false
+                  },
+                  "confirmedAt": {
+                    "type": "string",
+                    "format": "date-time"
+                  }
+                }
+              }
+            },
+            {
+              "if": {
+                "properties": {
+                  "status": {
+                    "const": "CONFIRMED"
+                  }
+                }
+              },
+              "then": {
+                "properties": {
+                  "confirmationKind": {
+                    "const": "PLATFORM_ACK"
+                  },
+                  "platformConfirmed": {
+                    "const": true
+                  }
+                }
+              }
+            },
+            {
+              "if": {
+                "properties": {
+                  "status": {
+                    "enum": [
+                      "NOT_PREPARED",
+                      "UNKNOWN"
+                    ]
+                  }
+                }
+              },
+              "then": {
+                "properties": {
+                  "confirmationKind": {
+                    "type": "null"
+                  },
+                  "platformConfirmed": {
+                    "const": false
+                  }
+                }
+              }
+            },
+            {
+              "if": {
+                "properties": {
+                  "status": {
+                    "const": "SUBMIT_CLICKED"
+                  }
+                }
+              },
+              "then": {
+                "required": [
+                  "confirmationKind",
+                  "platformConfirmed"
+                ],
+                "properties": {
+                  "confirmationKind": {
+                    "const": "INPUT_DISPATCHED"
+                  },
+                  "platformConfirmed": {
+                    "const": false
+                  },
+                  "confirmedAt": {
+                    "type": "string",
+                    "format": "date-time"
+                  }
+                }
+              }
+            }
+          ]
+        },
+        "modelCalls": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "callId",
+              "requestId",
+              "responseRequestId",
+              "requestIdMatched",
+              "profileId",
+              "source",
+              "startedAt",
+              "completedAt",
+              "responseCompletedAt",
+              "inputTokens",
+              "outputTokens",
+              "estimatedCost",
+              "elapsedMs",
+              "errorCode",
+              "validationStatus",
+              "javaValidatedTotal",
+              "modelResult",
+              "acceptedAsAttemptGrade"
+            ],
+            "properties": {
+              "callId": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "requestId": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "responseRequestId": {
+                "anyOf": [
+                  {
+                    "type": "string",
+                    "format": "uuid"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "requestIdMatched": {
+                "anyOf": [
+                  {
+                    "type": "boolean"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "profileId": {
+                "type": "string"
+              },
+              "source": {
+                "anyOf": [
+                  {
+                    "enum": [
+                      "MOCK",
+                      "LIVE"
+                    ]
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "startedAt": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "completedAt": {
+                "anyOf": [
+                  {
+                    "type": "string",
+                    "format": "date-time"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "responseCompletedAt": {
+                "anyOf": [
+                  {
+                    "type": "string",
+                    "format": "date-time"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "inputTokens": {
+                "anyOf": [
+                  {
+                    "type": "integer",
+                    "minimum": 0
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "outputTokens": {
+                "anyOf": [
+                  {
+                    "type": "integer",
+                    "minimum": 0
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "estimatedCost": {
+                "anyOf": [
+                  {
+                    "type": "number",
+                    "minimum": 0
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "elapsedMs": {
+                "anyOf": [
+                  {
+                    "type": "integer",
+                    "minimum": 0
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "errorCode": {
+                "anyOf": [
+                  {
+                    "type": "string",
+                    "pattern": "^[A-Z0-9_]{1,100}$"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "validationStatus": {
+                "anyOf": [
+                  {
+                    "enum": [
+                      "UNVALIDATED_LEGACY",
+                      "REQUEST_ID_MISMATCH",
+                      "INVALID_RESULT",
+                      "UNABLE",
+                      "VALIDATED"
+                    ]
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "javaValidatedTotal": {
+                "anyOf": [
+                  {
+                    "type": "number",
+                    "minimum": 0
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "modelResult": {
+                "anyOf": [
+                  {
+                    "$ref": "grade-result.schema.json"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "acceptedAsAttemptGrade": {
+                "type": "boolean",
+                "description": "This response supplies the attempt's usable score; it does not grant desktop input permission."
+              }
+            }
+          }
+        },
+        "events": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "state",
+              "reason",
+              "at"
+            ],
+            "properties": {
+              "state": {
+                "type": "string"
+              },
+              "reason": {
+                "type": "string"
+              },
+              "at": {
+                "type": "string",
+                "format": "date-time"
+              }
+            }
+          }
+        },
+        "serverCalls": {
+          "type": "array",
+          "maxItems": 50,
+          "description": "Optional server-owned actual text exchange, added to authenticated single-record detail; original images and credentials are excluded.",
+          "items": {
+            "$ref": "#/$defs/serverCall"
+          }
+        },
+        "serverCallsTruncated": {
+          "type": "boolean"
+        }
+      }
+    },
+    "export": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schemaVersion",
+        "imageBytesIncluded",
+        "records"
+      ],
+      "properties": {
+        "schemaVersion": {
+          "const": 2
+        },
+        "imageBytesIncluded": {
+          "const": false
+        },
+        "records": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/record"
+          }
+        }
+      }
+    },
+    "serverCall": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "requestId",
+        "kind"
+      ],
+      "properties": {
+        "requestId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "kind": {
+          "enum": [
+            "GRADING",
+            "RUBRIC_GENERATION"
+          ]
+        },
+        "request": {
+          "type": [
+            "object",
+            "null"
+          ]
+        },
+        "response": {
+          "type": [
+            "object",
+            "null"
+          ]
+        },
+        "modelOutput": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "state": {
+          "type": "string"
+        },
+        "modelId": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "traceUnavailable": {
+          "enum": [
+            "NO_SERVER_RECORD",
+            "DETAIL_SIZE_LIMIT"
+          ]
+        }
+      },
+      "oneOf": [
+        {
+          "required": [
+            "request",
+            "response",
+            "modelOutput",
+            "state",
+            "modelId"
+          ],
+          "not": {
+            "required": [
+              "traceUnavailable"
+            ]
+          }
+        },
+        {
+          "required": [
+            "traceUnavailable"
+          ],
+          "not": {
+            "anyOf": [
+              {
+                "required": [
+                  "request"
+                ]
+              },
+              {
+                "required": [
+                  "response"
+                ]
+              },
+              {
+                "required": [
+                  "modelOutput"
+                ]
+              },
+              {
+                "required": [
+                  "state"
+                ]
+              },
+              {
+                "required": [
+                  "modelId"
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    }
+  }
+}

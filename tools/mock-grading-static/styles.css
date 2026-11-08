@@ -1,0 +1,30 @@
+* { box-sizing: border-box; }
+html, body { margin: 0; width: 900px; min-height: 760px; background: #edf3f7; color: #17324d; font: 16px "Microsoft YaHei UI", "Segoe UI", sans-serif; }
+body { box-shadow: inset 0 4px #176b84; background: linear-gradient(180deg, #f8fbfd 0, #edf3f7 58%, #e6eef3 100%); }
+#test-note { position: absolute; left: 16px; top: 17px; color: #536d80; font-size: 13px; }
+h1 { position: absolute; left: 16px; top: 53px; font-size: 24px; line-height: 1.2; margin: 0; }
+#identity { position: absolute; left: 16px; top: 91px; font-size: 15px; }
+#state-label { position: absolute; left: 16px; top: 117px; color: #536d80; font-size: 14px; }
+#answer { position: absolute; left: 16px; top: 144px; width: 720px; height: 220px; background: #fff; outline: 1px solid #b6c7d2; box-shadow: 0 8px 24px rgba(33,63,82,.12); object-fit: contain; }
+#score-history { position: absolute; left: 752px; top: 144px; width: 118px; height: 220px; padding: 9px 10px; background: #fff; border: 1px solid #b6c7d2; border-radius: 5px; overflow: auto; }
+#score-history h2 { margin: 0 0 7px; font-size: 14px; }
+#score-list { margin: 0; padding: 0; list-style: none; font-size: 12px; line-height: 1.75; }
+#score-list li { border-bottom: 1px solid #e1e9ee; white-space: nowrap; }
+#score-empty { font-size: 12px; color: #718392; }
+#score-label { position: absolute; left: 16px; top: 375px; font-size: 14px; font-weight: 600; }
+#score { position: absolute; left: 16px; top: 402px; width: 160px; height: 44px; border: 2px solid #49788d; border-radius: 7px; background: white; font-size: 23px; padding: 6px 10px; color: #17324d; outline: none; }
+#score:focus { border-color: #0f8292; box-shadow: 0 0 0 3px rgba(15,130,146,.16); }
+button { border: 0; border-radius: 7px; padding: 10px 16px; font-family: inherit; font-size: 15px; font-weight: 600; background: #116f82; color: white; cursor: pointer; box-shadow: 0 4px 10px rgba(17,111,130,.18); }
+button:hover:not(:disabled) { background: #0b6173; }
+button:disabled { opacity: .45; cursor: default; box-shadow: none; }
+#submit { position: absolute; left: 192px; top: 402px; width: 144px; height: 44px; }
+#next { position: absolute; left: 352px; top: 402px; width: 144px; height: 44px; background: #385975; }
+#next[hidden] { display: none; }
+#restart { position: absolute; left: 512px; top: 402px; width: 120px; height: 44px; background: #8a5b25; }
+#receipt { position: absolute; left: 16px; top: 461px; font-size: 14px; color: #425d70; }
+#message { position: absolute; left: 16px; top: 490px; width: 840px; color: #995009; font-size: 14px; }
+#options { position: absolute; left: 16px; top: 540px; width: 854px; padding: 16px; border: 1px solid #c5d3dc; border-radius: 7px; background: #e8eff4; color: #3d586c; font-size: 14px; }
+#navigation-mode { margin-left: 12px; min-width: 220px; padding: 6px; color: inherit; font: inherit; }
+#options p { margin: 13px 0 0; font-size: 13px; }
+#footer { position: absolute; left: 16px; top: 710px; width: 854px; font-size: 12px; line-height: 1.7; color: #526b80; }
+noscript { display: block; padding: 650px 16px 20px; color: #995009; }

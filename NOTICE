@@ -1,0 +1,11 @@
+DeskGrade
+Copyright 2026 DeskGrade contributors
+
+Licensed under the Apache License, Version 2.0. See LICENSE.
+
+Third-party libraries, runtimes and build tools retain their respective
+licenses and notices. Client release bundles include dependency inventories,
+THIRD-PARTY-NOTICES.md and the applicable license files.
+
+Private user data, API credentials and original student answer images are not
+part of the public source distribution and are not licensed by this notice.

@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "questionId": "example-translation-4points",
+  "revision": 1,
+  "title": "文言文翻译单题示例（需补充原句后启用）",
+  "enabled": false,
+  "sourceText": null,
+  "requiresSourceText": true,
+  "referenceAnswer": "这几种形势，都利于我方坚守而不利于强攻，这是不变的道理。",
+  "maxScore": 4,
+  "scoreStep": 1,
+  "gradingMode": "CRITERIA",
+  "rawRubric": "能够准确译出句子大意，给2分；若句子大意翻译错误，不得此2分。\n关键字“是”翻译为“这、这几种、这几样、这样”等正确释义，给1分，翻译错误不得分。\n关键字“易”翻译为“变、改变、变化、变动”等正确释义，给1分，翻译错误不得分。\n本题满分共4分，要求以直译为主、意译为辅，翻译语句完整，关键点翻译正确方可满分。",
+  "criteria": [
+    {
+      "id": "meaning",
+      "name": "句子大意",
+      "maxScore": 2,
+      "allowedScores": [
+        0,
+        2
+      ],
+      "rule": "准确译出句子大意给2分，否则该项0分。"
+    },
+    {
+      "id": "shi",
+      "name": "关键字“是”",
+      "maxScore": 1,
+      "allowedScores": [
+        0,
+        1
+      ],
+      "rule": "在对应语义位置正确翻译为这、这几种、这几样、这样等意思，给1分；不是全文出现相同字就算正确。"
+    },
+    {
+      "id": "yi",
+      "name": "关键字“易”",
+      "maxScore": 1,
+      "allowedScores": [
+        0,
+        1
+      ],
+      "rule": "在对应语义位置正确表达变、改变、变化、变动等意思，给1分；不得改变原句含义。"
+    }
+  ],
+  "note": "用户给出的规则示例。原文未提供，不自动编造；不可作为已验证的学生评分样本。"
+}

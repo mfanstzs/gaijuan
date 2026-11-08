@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>DeskGrade 管理后台</title><link rel="stylesheet" href="/admin/style.css"><script src="/admin/app.js" defer></script></head>
+<body>
+<div id="login-screen" class="login-screen"><main class="login-card">
+<a class="brand" href="/admin"><span class="brand-mark">DG</span><span>DeskGrade<span class="brand-note">管理后台</span></span></a>
+<h1>登录管理后台</h1><p class="muted">管理用户次数、当前评分模型和操作记录。</p>
+<form id="login-form"><label for="username">管理员用户名</label><input id="username" autocomplete="username" maxlength="32" required autofocus>
+<label for="password">密码</label><input id="password" type="password" autocomplete="current-password" maxlength="128" required>
+<div id="login-message" class="form-message" role="alert" hidden></div><button id="login-button" type="submit" class="primary wide">登录</button></form>
+<p class="login-help">请使用已在本机设置的管理员账号。普通阅卷账号没有后台管理权限。</p></main></div>
+<div id="shell" class="shell" hidden>
+<aside class="sidebar"><a class="brand" href="#/dashboard"><span class="brand-mark">DG</span><span>DeskGrade<span class="brand-note">管理后台</span></span></a>
+<nav aria-label="后台导航">
+<a href="#/dashboard" data-section="dashboard"><span class="nav-icon" aria-hidden="true">总</span>经营概览</a>
+<a href="#/users" data-section="users"><span class="nav-icon" aria-hidden="true">人</span>用户管理</a>
+<a href="#/models" data-section="models"><span class="nav-icon" aria-hidden="true">模</span>模型设置</a>
+<a href="#/model-calls" data-section="model-calls"><span class="nav-icon" aria-hidden="true">阅</span>模型调用记录</a>
+<a href="#/audit" data-section="audit"><span class="nav-icon" aria-hidden="true">记</span>操作审计</a>
+<a href="#/orders" data-section="orders"><span class="nav-icon" aria-hidden="true">单</span>订单</a>
+<a href="#/packages" data-section="packages"><span class="nav-icon" aria-hidden="true">包</span>次数套餐</a>
+</nav><div class="sidebar-foot">每次发起模型请求扣 1 次<br>失败同样计次</div></aside>
+<div class="main-area"><header class="topbar"><div><span class="eyebrow">管理控制台</span><h1 id="page-title">经营概览</h1></div><div class="account-menu"><span id="account-name"></span><button id="logout-button" class="quiet" type="button">退出登录</button></div></header>
+<main id="main-content" tabindex="-1"><div id="notice" class="notice" role="status" aria-live="polite" hidden></div><div id="page-content"></div></main></div></div>
+<noscript><p class="noscript">此后台需要启用 JavaScript 才能登录和操作。</p></noscript>
+</body></html>

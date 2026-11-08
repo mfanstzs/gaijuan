@@ -1,0 +1,35 @@
+# Local secrets and runtime data
+.env
+.env.*
+!.env.example
+*.key
+*.pem
+*.p12
+*.pfx
+*.dpapi
+runtime-data/
+local-data/
+private-fixtures/
+**/target/
+dist/
+*.mv.db
+*.trace.db
+*.lock.db
+*.log
+.idea/
+.vscode/
+.DS_Store
+# Do not blanket-ignore anonymous contract/test fixtures.
+
+# Build tools, local credentials, captures and generated reports
+.tools/
+.codebase-memory/
+toolchains.xml
+settings.xml
+screenshots/
+captures/
+logs/
+*.jks
+*.keystore
+hs_err_pid*
+replay_pid*

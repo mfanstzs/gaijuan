@@ -1,0 +1,80 @@
+name: deskgrade
+services:
+  mysql:
+    image: mysql@sha256:b3b90af2a6552ae30c266fdb7d5dd55f3afb72404bb78d37fe8a23eb857fd3fb
+    restart: unless-stopped
+    env_file: /etc/deskgrade/mysql.env
+    command: ["--bind-address=0.0.0.0", "--max-connections=80", "--mysqlx=OFF"]
+    ports: ["127.0.0.1:23306:3306"]
+    volumes: ["mysql-data:/var/lib/mysql"]
+    healthcheck:
+      test: ["CMD-SHELL", "MYSQL_PWD=\"$$MYSQL_ROOT_PASSWORD\" mysqladmin ping -h 127.0.0.1 -u root --silent"]
+      interval: 10s
+      timeout: 5s
+      retries: 30
+    mem_limit: 1536m
+    logging:
+      driver: json-file
+      options: {max-size: "10m", max-file: "3"}
+  redis:
+    image: redis@sha256:ff02b58f971e7d7d156a1267e283fcbbeee91773b6aa36c49dac28ecfe28eadf
+    restart: unless-stopped
+    env_file: /etc/deskgrade/redis.env
+    command: ["sh", "-c", "exec redis-server --appendonly yes --maxmemory 128mb --maxmemory-policy noeviction --requirepass \"$$REDIS_PASSWORD\""]
+    ports: ["127.0.0.1:26379:6379"]
+    volumes: ["redis-data:/data"]
+    healthcheck:
+      test: ["CMD-SHELL", "REDISCLI_AUTH=\"$$REDIS_PASSWORD\" redis-cli ping | grep -q PONG"]
+      interval: 10s
+      timeout: 5s
+      retries: 15
+    mem_limit: 256m
+    logging:
+      driver: json-file
+      options: {max-size: "10m", max-file: "3"}
+  gateway:
+    image: eclipse-temurin@sha256:affcab5356e1270ac35d2361ee83135af2f03e8d580eca78a6d5d6fdbf048db0
+    restart: unless-stopped
+    user: "${DG_UID}:${DG_GID}"
+    network_mode: host
+    working_dir: /app
+    read_only: true
+    cap_drop: [ALL]
+    security_opt: ["no-new-privileges:true"]
+    env_file: /etc/deskgrade/gateway.env
+    environment:
+      HOME: /var/lib/deskgrade
+    volumes:
+      - "${DG_RELEASE}:/app:ro"
+      - "/etc/deskgrade:/etc/deskgrade:ro"
+      - "/var/lib/deskgrade:/var/lib/deskgrade"
+    tmpfs: ["/tmp:size=64m,mode=1777"]
+    command:
+      - java
+      - -Xms128m
+      - -Xmx768m
+      - -Duser.home=/var/lib/deskgrade
+      - -Dfile.encoding=UTF-8
+      - -cp
+      - /app/gateway.jar:/app/lib/*
+      - app.deskgrade.gateway.GatewayMain
+      - serve
+      - --data-dir
+      - /var/lib/deskgrade
+      - --storage-config
+      - /etc/deskgrade/storage.json
+      - --profiles
+      - /etc/deskgrade/server-profiles.json
+      - --credentials-dir
+      - /etc/deskgrade/credentials
+      - --allow-live
+    depends_on:
+      mysql: {condition: service_healthy}
+      redis: {condition: service_healthy}
+    mem_limit: 1024m
+    logging:
+      driver: json-file
+      options: {max-size: "10m", max-file: "5"}
+volumes:
+  mysql-data:
+  redis-data:

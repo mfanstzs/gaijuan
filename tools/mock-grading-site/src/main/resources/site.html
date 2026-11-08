@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>自动评分测试页</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23134e6f'/%3E%3Cpath d='M8 9h16v14H8z' fill='white'/%3E%3Cpath d='m11 16 3 3 7-8' fill='none' stroke='%230f9f8f' stroke-width='3'/%3E%3C/svg%3E">
+<style>
+*{box-sizing:border-box} html,body{margin:0;width:900px;min-height:760px;overflow:hidden;background:#edf3f7;color:#17324d;font:16px "Microsoft YaHei UI","Segoe UI",sans-serif}
+body{box-shadow:inset 0 4px #176b84;background:linear-gradient(180deg,#f8fbfd 0,#edf3f7 58%,#e6eef3 100%)}
+#marker{position:absolute;left:16px;top:16px;width:260px;height:28px;image-rendering:pixelated}
+.marker-note{position:absolute;left:292px;top:21px;font-size:12px;color:#66798a}
+h1{position:absolute;left:16px;top:54px;font-size:24px;line-height:1.2;margin:0;letter-spacing:.02em}.identity{position:absolute;left:16px;top:91px;font-size:15px}.status{position:absolute;left:16px;top:117px;color:#536d80;font-size:14px}
+#answer{position:absolute;left:16px;top:144px;width:720px;height:220px;background:#fff;outline:1px solid #b6c7d2;box-shadow:0 8px 24px rgba(33,63,82,.12);object-fit:contain}
+#score-history{position:absolute;left:752px;top:144px;width:118px;height:220px;padding:9px 10px;background:#fff;border:1px solid #b6c7d2;border-radius:5px;box-shadow:0 8px 24px rgba(33,63,82,.08);overflow:auto}#score-history h2{margin:0 0 7px;font-size:14px}#score-list{margin:0;padding:0;list-style:none;font-size:12px;line-height:1.75}#score-list li{border-bottom:1px solid #e1e9ee;white-space:nowrap}#score-empty{font-size:12px;color:#718392}
+#score-label{position:absolute;left:16px;top:375px;font-size:14px;font-weight:600}#score{position:absolute;left:16px;top:402px;width:160px;height:44px;border:2px solid #49788d;border-radius:7px;background:white;font-size:23px;padding:6px 10px;color:#17324d;outline:none}#score:focus{border-color:#0f8292;box-shadow:0 0 0 3px rgba(15,130,146,.16)}
+button{border:0;border-radius:7px;padding:10px 16px;font-family:inherit;font-size:15px;font-weight:600;background:#116f82;color:white;cursor:pointer;box-shadow:0 4px 10px rgba(17,111,130,.18)}button:hover:not(:disabled){background:#0b6173}button:disabled{opacity:.45;cursor:default;box-shadow:none}
+#submit{position:absolute;left:192px;top:402px;width:144px;height:44px}#next{position:absolute;left:352px;top:402px;width:144px;height:44px;background:#385975}#next[hidden]{display:none}#restart{position:absolute;left:512px;top:402px;width:120px;height:44px;background:#8a5b25}
+#receipt{position:absolute;left:16px;top:461px;font-size:14px;color:#425d70}#message{position:absolute;left:16px;top:488px;width:830px;color:#995009;font-size:14px}
+#faults{position:absolute;left:16px;top:530px;width:854px;padding:10px 14px;border:1px solid #c5d3dc;border-radius:7px;background:#e8eff4;font-size:13px;color:#3d586c}#faults summary{cursor:pointer;font-weight:600}#faults[open] summary{margin-bottom:10px}#faults label{display:inline-block;margin:0 13px 9px 0}#faults input[type=number]{width:75px}#faults button{font-size:12px;padding:7px 12px;margin-right:7px}
+#overlay{display:none;position:absolute;left:8px;top:132px;width:752px;height:324px;z-index:5;background:rgba(15,32,52,.94);color:white;border:3px solid #ffba62;border-radius:8px;padding:82px 26px;text-align:center;font-size:22px}
+#footer{position:absolute;left:16px;top:722px;font-size:12px;color:#526b80}
+</style>
+</head>
+<body>
+<canvas id="marker" width="260" height="28" aria-label="可见页面状态编码 DGM1"></canvas>
+<span class="marker-note">DGM1 屏幕读回标记 · 固定布局 · 100% 页面缩放</span>
+<h1>自动评分测试页</h1>
+<div class="identity">当前答卷 <strong id="answer-id">载入中</strong>　题号 <strong id="question-no">—</strong>　进度 <strong id="count">0</strong> / <span id="total">—</span></div>
+<div class="status" id="state-label">正在加载</div>
+<img id="answer" width="720" height="220" alt="答题图片">
+<aside id="score-history" aria-label="打分记录"><h2>打分记录</h2><div id="score-empty">暂无记录</div><ol id="score-list"></ol></aside>
+<label id="score-label" for="score">填写分数（0–4分）</label>
+<input id="score" type="number" min="0" max="4" step="1" inputmode="numeric" autocomplete="off" aria-label="填写分数">
+<button id="submit" type="button" disabled>提交并下一份</button>
+<button id="next" type="button" hidden disabled>下一份</button>
+<button id="restart" type="button">重新开始</button>
+<div id="receipt">最近确认答卷：<strong id="ack">无</strong>　提交模式：<span id="mode">—</span></div>
+<div id="message" role="status"></div>
+<div id="overlay"></div>
+<details id="faults">
+<summary>故障模拟工具（可选）</summary>
+<label>延迟 ms <input id="delayMillis" type="number" min="0" max="30000" value="0"></label>
+<label><input id="blankImage" type="checkbox">连续空白图</label><label><input id="identicalImage" type="checkbox">连续相同图</label><label><input id="rejectScore" type="checkbox">拒绝输入/分数</label><label><input id="dropReceipt" type="checkbox">提交成功但丢回执</label><br>
+<label><input id="submitFailure" type="checkbox">提交失败</label><label><input id="questionChanged" type="checkbox">切到题号 2</label><label><input id="loginExpired" type="checkbox">登录失效</label><label><input id="popup" type="checkbox">弹窗遮挡</label><br>
+<button id="apply" type="button">应用故障</button><button id="clear" type="button">清除故障</button><button id="force" type="button">强制换下一答卷</button><span id="poll-health">观察中：每 500 ms 最多一次</span>
+</details>
+<div id="footer">本页只在 127.0.0.1 本机运行；测试素材不会由本页上传到外部服务。</div>
+<script>
+'use strict';
+const byId=id=>document.getElementById(id), score=byId('score'), answer=byId('answer');
+const completedImageUrl='/answer/completed.png';
+const faultNames=['blankImage','identicalImage','rejectScore','dropReceipt','submitFailure','questionChanged','loginExpired','popup'];
+let current={answerSequence:0,questionNo:1,pageState:4,mode:1,ackAnswerSequence:0,confirmedCount:0,pageRevision:0,faultFlags:0};
+let imageReady=false, actionInFlight=false, pollInFlight=false, scoreListInFlight=false, epoch=0, failures=0, errorLatch=false, lastScoreCount=-1;
+function scoreScaled(){
+  const raw=score.value.trim();
+  if(!/^-?\d+(\.\d{1,2})?$/.test(raw))return -2147483648;
+  const n=Number(raw)*100;
+  return Number.isSafeInteger(n)&&n>=-2147483647&&n<=2147483647?n:-2147483648;
+}
+function scoreReady(){const scaled=scoreScaled();return scaled>=0&&scaled<=400&&scaled%100===0;}
+function paint(){
+  const b=new Uint8Array(32),v=new DataView(b.buffer);
+  b.set([68,71,77,49]);v.setUint32(4,current.answerSequence);v.setUint16(8,current.questionNo);
+  b[10]=errorLatch?7:actionInFlight?4:current.pageState===1&&!imageReady?4:current.pageState;
+  b[11]=current.mode;v.setInt32(12,scoreScaled());v.setUint32(16,current.ackAnswerSequence);
+  v.setUint32(20,current.confirmedCount);v.setUint32(24,current.pageRevision);v.setUint16(28,current.faultFlags);
+  v.setUint16(30,b.slice(0,30).reduce((sum,n)=>sum+n,0)&65535);
+  const ctx=byId('marker').getContext('2d');ctx.fillStyle='#ff00ff';ctx.fillRect(0,0,260,28);
+  b.forEach((n,i)=>{ctx.fillStyle='rgb('+n+','+n+','+n+')';ctx.fillRect(2+i*8,2,8,24);});
+  byId('submit').disabled=b[10]!==1||!scoreReady();
+  byId('next').disabled=b[10]!==2||current.mode!==2;
+  byId('restart').disabled=actionInFlight;
+  score.disabled=b[10]!==1&&!(current.pageState===1&&!errorLatch&&!actionInFlight);
+}
+async function refreshScores(){
+  if(scoreListInFlight)return;
+  scoreListInFlight=true;
+  try{
+    const entries=await request('/api/scores');
+    const list=byId('score-list');list.replaceChildren();
+    entries.forEach(entry=>{const item=document.createElement('li');item.textContent=entry.answerId.replace('SYN-','')+'：'+entry.score+' 分';list.appendChild(item);});
+    byId('score-empty').style.display=entries.length?'none':'block';
+  }catch(e){byId('score-empty').textContent='记录读取失败';byId('score-empty').style.display='block';}
+  finally{scoreListInFlight=false;}
+}
+function applyState(s){
+  const changed=s.answerId!==current.answerId;
+  current=s;
+  byId('answer-id').textContent=s.answerId||'已完成';byId('question-no').textContent=s.questionNo;
+  byId('count').textContent=s.confirmedCount;byId('total').textContent=s.totalCount;
+  byId('ack').textContent=s.ackAnswerSequence?'SYN-'+String(s.ackAnswerSequence).padStart(4,'0'):'无';
+  byId('mode').textContent=s.mode===1?'提交后自动下一份':'提交确认后手动下一份';
+  byId('next').hidden=s.mode!==2;
+  byId('submit').textContent=s.mode===1?'提交并下一份':'提交分数';
+  byId('state-label').textContent=s.message;
+  answer.alt=s.answerSequence?'答题图片 '+s.answerSequence:'答题图片已全部完成';
+  answer.dataset.testid=s.answerSequence?'answer-image-'+String(s.answerSequence).padStart(2,'0'):'';
+  if(changed||s.pageState===3)score.value='';
+  const visibleImageUrl=s.imageUrl||completedImageUrl;
+  if(answer.getAttribute('src')!==visibleImageUrl){imageReady=false;answer.src=visibleImageUrl;}
+  const blocking=s.pageState===5||s.pageState===6;
+  byId('overlay').style.display=blocking?'block':'none';byId('overlay').textContent=blocking?s.message:'';
+  if(lastScoreCount!==s.confirmedCount){lastScoreCount=s.confirmedCount;refreshScores();}
+  paint();
+}
+answer.onload=()=>{imageReady=answer.naturalWidth>0&&answer.naturalHeight>0;paint();};
+answer.onerror=()=>{imageReady=false;byId('message').textContent='图片加载失败，禁止提交';paint();};
+score.addEventListener('input',()=>{if(current.faultFlags&8){score.value='';byId('message').textContent='故障：数字输入已拒绝';}paint();});
+async function request(path,body){
+  const opts=body===undefined?{}:{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)};
+  const response=await fetch(path,opts),data=await response.json();
+  if(!response.ok){const err=new Error(data.outcome||data.error||'HTTP_'+response.status);err.state=data.state;throw err;}
+  return data;
+}
+async function action(path,body){
+  if(actionInFlight)return;
+  actionInFlight=true;epoch++;paint();
+  try {const r=await request(path,body);errorLatch=false;byId('message').textContent='';applyState(r.state||r);}
+  catch(e){if(e.state)applyState(e.state);errorLatch=true;byId('message').textContent='操作未确认：'+e.message+'。请检查独立测试账本；不得自动再次提交。';}
+  finally{actionInFlight=false;paint();}
+}
+byId('submit').onclick=()=>{if(current.pageState===1&&imageReady&&!errorLatch)action('/api/submit',{answerId:current.answerId,score:score.value});};
+byId('next').onclick=()=>action('/api/next',{});
+byId('restart').onclick=()=>{failures=0;errorLatch=false;lastScoreCount=-1;action('/api/restart',{});};
+function faults(){const f={delayMillis:Number(byId('delayMillis').value)};faultNames.forEach(n=>f[n]=byId(n).checked);return f;}
+byId('apply').onclick=()=>{failures=0;action('/api/faults',faults());};
+byId('clear').onclick=()=>{faultNames.forEach(n=>byId(n).checked=false);byId('delayMillis').value=0;failures=0;action('/api/faults',faults());};
+byId('force').onclick=()=>action('/api/force-advance',{});
+async function poll(){
+  if(!actionInFlight&&!pollInFlight&&failures<5){
+    pollInFlight=true;const startedEpoch=epoch;
+    try{const s=await request('/api/state');if(startedEpoch===epoch){applyState(s);failures=0;}}
+    catch(e){failures++;if(failures>=5){errorLatch=true;byId('message').textContent='连续 5 次观察失败，已停止网络重试。';paint();}}
+    finally{pollInFlight=false;}
+  }
+  byId('poll-health').textContent=failures>=5?'观察已停止：连续错误达到上限':'观察中：每 500 ms 最多一次';
+  setTimeout(poll,500);
+}
+paint();poll();
+</script>
+</body>
+</html>

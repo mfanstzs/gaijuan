@@ -1,0 +1,177 @@
+{
+  "schemaVersion": 2,
+  "attemptId": "11111111-1111-4111-8111-111111111111",
+  "captureId": "11111111-1111-4111-8111-111111111111",
+  "runId": "22222222-2222-4222-8222-222222222222",
+  "answerId": "synthetic-answer-1",
+  "questionId": "synthetic-addition",
+  "state": "WAIT_NEXT",
+  "score": 0,
+  "javaValidatedTotal": 0,
+  "submissionPrepared": true,
+  "submitSent": true,
+  "confirmedAt": "2026-09-10T00:00:01Z",
+  "captureSha256": "0000000000000000000000000000000000000000000000000000000000000000",
+  "capturedAt": "2026-09-10T00:00:00Z",
+  "imagePersistence": "NOT_STORED",
+  "actionEpoch": 1,
+  "ruleRevision": 1,
+  "modelRevision": 1,
+  "platformRevision": 1,
+  "configuration": {
+    "mode": "SYNTHETIC_DOCUMENTATION_EXAMPLE",
+    "note": "此记录为虚构合成格式示例，不证明发生了模型调用或平台提交。",
+    "question": {
+      "id": "synthetic-addition",
+      "revision": 1,
+      "prompt": "计算7+5。",
+      "standardAnswer": "12",
+      "maximumScore": 1,
+      "criteria": [
+        {
+          "id": "calculation",
+          "description": "结果12得1分，否则0分",
+          "allowedScores": [
+            0,
+            1
+          ]
+        }
+      ]
+    },
+    "rubric": "{\"schemaVersion\":1,\"questionId\":\"synthetic-addition\",\"revision\":1,\"sourceText\":\"计算7+5。\",\"referenceAnswer\":\"12\",\"maxScore\":1,\"scoreStep\":1,\"rawRubric\":\"结果12得1分，否则0分。\",\"requiresSourceText\":false,\"missingSourceAccepted\":false,\"criteria\":[{\"id\":\"calculation\",\"rule\":\"结果12得1分，否则0分\",\"allowedScores\":[0,1]}]}",
+    "gradingInstructions": "保留学生转写和依据，只按固定规则评分。",
+    "profile": {
+      "serverProfileId": "SYNTHETIC_DOCUMENTATION_ONLY",
+      "modelId": "MOCK",
+      "revision": 1
+    }
+  },
+  "questionSnapshot": {
+    "id": "synthetic-addition",
+    "revision": 1,
+    "prompt": "计算7+5。",
+    "standardAnswer": "12",
+    "maximumScore": 1,
+    "criteria": [
+      {
+        "id": "calculation",
+        "description": "结果12得1分，否则0分",
+        "allowedScores": [
+          0,
+          1
+        ]
+      }
+    ]
+  },
+  "standardAnswer": "12",
+  "rubricSnapshot": {
+    "schemaVersion": 1,
+    "questionId": "synthetic-addition",
+    "revision": 1,
+    "sourceText": "计算7+5。",
+    "referenceAnswer": "12",
+    "maxScore": 1,
+    "scoreStep": 1,
+    "rawRubric": "结果12得1分，否则0分。",
+    "requiresSourceText": false,
+    "missingSourceAccepted": false,
+    "criteria": [
+      {
+        "id": "calculation",
+        "rule": "结果12得1分，否则0分",
+        "allowedScores": [
+          0,
+          1
+        ]
+      }
+    ]
+  },
+  "modelSnapshot": {
+    "serverProfileId": "SYNTHETIC_DOCUMENTATION_ONLY",
+    "modelId": "MOCK",
+    "revision": 1
+  },
+  "gradingResult": {
+    "source": "MOCK",
+    "result": {
+      "status": "SCORED",
+      "readability": "CLEAR",
+      "studentText": "7+5=11",
+      "criteria": [
+        {
+          "criterionId": "calculation",
+          "awarded": 0,
+          "evidence": "学生写出 7+5=11",
+          "reason": "标准答案为12，计算结果错误。"
+        }
+      ],
+      "issues": []
+    }
+  },
+  "acceptedRequestId": "33333333-3333-4333-8333-333333333333",
+  "input": {
+    "javaTotal": 0,
+    "readbackScore": 0,
+    "readbackAt": "2026-09-10T00:00:01Z",
+    "status": "READBACK_MATCHED"
+  },
+  "submission": {
+    "status": "CONFIRMED",
+    "intentPrepared": true,
+    "dispatchPrepared": true,
+    "confirmedAt": "2026-09-10T00:00:01Z",
+    "note": "Dispatch preparation is not proof the platform received a submission; only confirmation is authoritative."
+  },
+  "modelCalls": [
+    {
+      "callId": "33333333-3333-4333-8333-333333333333",
+      "requestId": "33333333-3333-4333-8333-333333333333",
+      "responseRequestId": "33333333-3333-4333-8333-333333333333",
+      "requestIdMatched": true,
+      "profileId": "SYNTHETIC_DOCUMENTATION_ONLY",
+      "source": "MOCK",
+      "startedAt": "2026-09-10T00:00:00Z",
+      "completedAt": "2026-09-10T00:00:01Z",
+      "responseCompletedAt": "2026-09-10T00:00:01Z",
+      "inputTokens": null,
+      "outputTokens": null,
+      "estimatedCost": null,
+      "elapsedMs": null,
+      "errorCode": null,
+      "validationStatus": "VALIDATED",
+      "javaValidatedTotal": 0,
+      "modelResult": {
+        "status": "SCORED",
+        "readability": "CLEAR",
+        "studentText": "7+5=11",
+        "criteria": [
+          {
+            "criterionId": "calculation",
+            "awarded": 0,
+            "evidence": "学生写出 7+5=11",
+            "reason": "标准答案为12，计算结果错误。"
+          }
+        ],
+        "issues": []
+      },
+      "acceptedAsAttemptGrade": true
+    }
+  ],
+  "events": [
+    {
+      "state": "FILLING",
+      "reason": "NONE",
+      "at": "2026-09-10T00:00:00Z"
+    },
+    {
+      "state": "SUBMIT_PREPARED",
+      "reason": "NONE",
+      "at": "2026-09-10T00:00:01Z"
+    },
+    {
+      "state": "SUBMISSION_CONFIRMED",
+      "reason": "NONE",
+      "at": "2026-09-10T00:00:01Z"
+    }
+  ]
+}

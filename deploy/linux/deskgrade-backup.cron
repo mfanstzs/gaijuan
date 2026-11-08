@@ -1,0 +1,3 @@
+SHELL=/bin/sh
+PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+37 3 * * * root /opt/deskgrade/backup.sh >> /var/log/deskgrade-backup.log 2>&1

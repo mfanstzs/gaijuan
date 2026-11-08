@@ -1,0 +1,28 @@
+{
+  "status": "UNABLE",
+  "readability": "UNREADABLE",
+  "studentText": null,
+  "criteria": [
+    {
+      "criterionId": "meaning",
+      "awarded": null,
+      "evidence": null,
+      "reason": "合成异常示例，无法读取作答。"
+    },
+    {
+      "criterionId": "shi",
+      "awarded": null,
+      "evidence": null,
+      "reason": "合成异常示例，无法读取作答。"
+    },
+    {
+      "criterionId": "yi",
+      "awarded": null,
+      "evidence": null,
+      "reason": "合成异常示例，无法读取作答。"
+    }
+  ],
+  "issues": [
+    "合成异常示例：关键作答区域不可读，不能给默认0分。"
+  ]
+}

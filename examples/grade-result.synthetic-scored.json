@@ -1,0 +1,26 @@
+{
+  "status": "SCORED",
+  "readability": "CLEAR",
+  "studentText": "这几种形势都利于我方坚守而不利于强攻，这是不变的道理。",
+  "criteria": [
+    {
+      "criterionId": "meaning",
+      "awarded": 2,
+      "evidence": "这几种形势都利于我方坚守而不利于强攻，这是不变的道理。",
+      "reason": "此处为格式测试用合成答案，覆盖给定标准译文的大意。"
+    },
+    {
+      "criterionId": "shi",
+      "awarded": 1,
+      "evidence": "这几种形势",
+      "reason": "此处为格式示例，表达“这几种”的指代意思。"
+    },
+    {
+      "criterionId": "yi",
+      "awarded": 1,
+      "evidence": "不变的道理",
+      "reason": "此处为格式示例，保留“不变”的意思。"
+    }
+  ],
+  "issues": []
+}

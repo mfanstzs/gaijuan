@@ -1,0 +1,22 @@
+{
+  "documentType": "REQUIREMENTS_ONLY_NOT_EXECUTABLE_CONFIGURATION",
+  "status": "AWAITING_REAL_PLATFORM",
+  "platformName": null,
+  "platformUrlOrClientName": null,
+  "platformVersion": null,
+  "testEnvironmentAvailable": false,
+  "testSubmissionAuthorization": null,
+  "windowsVersion": null,
+  "browserNameAndVersion": null,
+  "displayScalePercent": null,
+  "browserZoomPercent": null,
+  "questionIdEvidence": null,
+  "answerIdOrSequenceEvidence": null,
+  "readyAndLoadingEvidence": null,
+  "scoreReadbackEvidence": null,
+  "submissionAcknowledgmentEvidence": null,
+  "nextAnswerReadyEvidence": null,
+  "completionEvidence": null,
+  "anonymousLabeledSamplesAvailable": 0,
+  "notes": "Do not add credentials, passwords, cookies, student names or student IDs. Missing evidence keeps real-platform automation disabled."
+}

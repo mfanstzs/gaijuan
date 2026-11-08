@@ -1,0 +1,11 @@
+ALTER TABLE grading_attempt ADD COLUMN IF NOT EXISTS owner_scope VARCHAR(64) DEFAULT '' NOT NULL;
+ALTER TABLE grading_attempt ADD COLUMN IF NOT EXISTS question_snapshot CLOB;
+ALTER TABLE grading_attempt ADD COLUMN IF NOT EXISTS accepted_request_id UUID;
+ALTER TABLE grading_attempt ADD COLUMN IF NOT EXISTS score_readback DECIMAL(32,8);
+ALTER TABLE grading_attempt ADD COLUMN IF NOT EXISTS score_readback_at TIMESTAMP WITH TIME ZONE;
+ALTER TABLE model_call ADD COLUMN IF NOT EXISTS response_request_id UUID;
+ALTER TABLE model_call ADD COLUMN IF NOT EXISTS response_completed_at TIMESTAMP WITH TIME ZONE;
+ALTER TABLE model_call ADD COLUMN IF NOT EXISTS result_json CLOB;
+ALTER TABLE model_call ADD COLUMN IF NOT EXISTS validation_status VARCHAR(40);
+ALTER TABLE model_call ADD COLUMN IF NOT EXISTS java_total DECIMAL(32,8);
+CREATE INDEX IF NOT EXISTS attempt_owner_time_idx ON grading_attempt(owner_scope,captured_at,attempt_id);

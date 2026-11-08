@@ -1,0 +1,124 @@
+.root {
+  -fx-font-family: "Microsoft YaHei UI", "Microsoft YaHei", "Segoe UI";
+  -fx-font-size: 13px;
+  -fx-text-fill: #20334a;
+  -fx-background-color: #f4f6f9;
+  -fx-focus-color: #386bca;
+  -fx-faint-focus-color: #386bca22;
+}
+
+.label { -fx-text-fill: #20334a; }
+.app-header {
+  -fx-background-color: white;
+  -fx-padding: 22 28;
+  -fx-border-color: transparent transparent #e3e8ef transparent;
+}
+.monogram {
+  -fx-background-color: #244b82;
+  -fx-background-radius: 10;
+  -fx-text-fill: white;
+  -fx-font-size: 18px;
+  -fx-font-weight: bold;
+  -fx-padding: 11 10;
+}
+.brand { -fx-font-size: 23px; -fx-font-weight: bold; }
+.muted { -fx-text-fill: #68788b; }
+#embedded-browser-entry .button { -fx-padding: 8 12; }
+#embedded-browser-url {
+  -fx-pref-height: 34;
+  -fx-prompt-text-fill: #8b98a8;
+}
+.status-pill {
+  -fx-background-color: #fff4db;
+  -fx-background-radius: 16;
+  -fx-text-fill: #876522;
+  -fx-padding: 7 14;
+}
+.tab-pane > .tab-header-area { -fx-padding: 8 28 0 28; }
+.tab-pane > .tab-header-area > .tab-header-background {
+  -fx-background-color: white;
+  -fx-border-color: transparent transparent #e3e8ef transparent;
+}
+.tab-pane > .tab-header-area > .headers-region > .tab {
+  -fx-background-color: transparent;
+  -fx-padding: 9 23 11 23;
+  -fx-background-insets: 0;
+}
+.tab-pane > .tab-header-area > .headers-region > .tab:selected {
+  -fx-border-color: transparent transparent #386bca transparent;
+  -fx-border-width: 0 0 3 0;
+}
+.tab .tab-label { -fx-text-fill: #68788b; -fx-font-size: 14px; }
+.tab:selected .tab-label { -fx-text-fill: #244b82; -fx-font-weight: bold; }
+.page { -fx-padding: 24 28; }
+.page-title { -fx-font-size: 22px; -fx-font-weight: bold; }
+.page-note { -fx-text-fill: #68788b; -fx-font-size: 12px; }
+.card {
+  -fx-background-color: white;
+  -fx-background-radius: 10;
+  -fx-border-color: #e2e8f0;
+  -fx-border-radius: 10;
+  -fx-padding: 18;
+}
+.card-title { -fx-font-weight: bold; -fx-font-size: 14px; }
+.image-placeholder {
+  -fx-background-color: #f8fafc;
+  -fx-border-color: #dce4ee;
+  -fx-border-style: dashed;
+  -fx-border-radius: 6;
+  -fx-background-radius: 6;
+}
+.empty-title { -fx-font-size: 17px; -fx-text-fill: #60748c; }
+.score-empty { -fx-font-size: 20px; -fx-font-weight: bold; }
+.metric-number { -fx-font-size: 32px; -fx-font-weight: bold; }
+.field-value { -fx-text-fill: #68788b; }
+.button { -fx-padding: 9 17; -fx-background-radius: 6; -fx-border-radius: 6; }
+.button { -fx-background-color: #edf2f8; -fx-text-fill: #244b82; }
+.button:hover { -fx-background-color: #dfe9f6; }
+#start-auto { -fx-background-color: #244b82; -fx-text-fill: white; }
+#start-auto:disabled { -fx-background-color: #dce5f3; -fx-text-fill: #788ca8; -fx-opacity: 1; }
+.scroll-pane, .scroll-pane > .viewport { -fx-background-color: #f4f6f9; }
+.text-field, .text-area, .combo-box { -fx-background-radius: 5; }
+.text-area .content { -fx-background-color: #fcfdff; }
+.primary-action:disabled {
+  -fx-opacity: 1;
+  -fx-background-color: #dce5f3;
+  -fx-text-fill: #788ca8;
+}
+.secondary-action:disabled {
+  -fx-opacity: 1;
+  -fx-background-color: #f0f3f7;
+  -fx-border-color: #dde4ed;
+  -fx-text-fill: #8b98a8;
+}
+.app-footer {
+  -fx-background-color: white;
+  -fx-border-color: #e3e8ef transparent transparent transparent;
+  -fx-padding: 11 28;
+  -fx-font-size: 12px;
+}
+.model-step-current {
+  -fx-background-color: #244b82;
+  -fx-background-radius: 8;
+  -fx-text-fill: white;
+  -fx-font-weight: bold;
+  -fx-padding: 9 14;
+}
+.model-step-pending {
+  -fx-background-color: #edf2f8;
+  -fx-background-radius: 8;
+  -fx-text-fill: #68788b;
+  -fx-padding: 9 14;
+}
+.model-ready {
+  -fx-text-fill: #23734b;
+  -fx-font-weight: bold;
+}
+.model-needs-setup {
+  -fx-text-fill: #94621b;
+  -fx-font-weight: bold;
+}
+#model-setup-next, #model-setup-finish {
+  -fx-background-color: #244b82;
+  -fx-text-fill: white;
+}

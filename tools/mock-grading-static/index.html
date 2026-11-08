@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="robots" content="noindex,nofollow,noarchive">
+  <title>模拟打分测试页</title>
+  <link rel="stylesheet" href="./styles.css">
+  <script type="module" src="./app.js"></script>
+</head>
+<body>
+  <div id="test-note">仅本页模拟 · 不调用模型 · 不扣次数 · 刷新清空记录</div>
+  <h1>模拟打分测试页</h1>
+  <div id="identity">当前答卷 <strong id="answer-id">载入中</strong>　进度 <strong id="count">0</strong> / <span id="total">6</span></div>
+  <div id="state-label" role="status" aria-live="polite">正在加载答题图片</div>
+  <img id="answer" width="720" height="220" alt="答题图片">
+  <aside id="score-history" aria-label="本页模拟打分记录">
+    <h2>本页记录</h2>
+    <div id="score-empty">暂无记录</div>
+    <ol id="score-list"></ol>
+  </aside>
+  <label id="score-label" for="score">填写分数（0–4 分，整数）</label>
+  <input id="score" type="number" min="0" max="4" step="1" inputmode="numeric" autocomplete="off" aria-label="填写分数" disabled>
+  <button id="submit" type="button" disabled>提交并下一份</button>
+  <button id="next" type="button" hidden disabled>下一份</button>
+  <button id="restart" type="button">重新开始</button>
+  <div id="receipt" aria-live="polite">最近本页提交：<strong id="ack">无</strong></div>
+  <div id="message" role="status"></div>
+  <section id="options" aria-label="测试选项">
+    <label for="navigation-mode">导航方式</label>
+    <select id="navigation-mode">
+      <option value="submit-and-advance">提交后自动下一份</option>
+      <option value="submit-then-next">提交后点击下一份</option>
+    </select>
+    <p>切换导航方式会重新开始。第 6 份提交后直接显示完成，不再翻页。</p>
+  </section>
+  <div id="footer">记录只在当前标签页内存中保存；本页不向服务器提交分数。使用 DeskGrade 阅卷时，模型调用仍按软件规则计费。</div>
+  <noscript>请启用 JavaScript 后使用模拟打分测试页。</noscript>
+</body>
+</html>

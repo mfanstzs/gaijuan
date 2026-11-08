@@ -1,0 +1,34 @@
+{
+  "schemaVersion": 1,
+  "id": "vision-economy-example",
+  "revision": 1,
+  "displayName": "经济模型（未配置，禁用）",
+  "enabled": false,
+  "providerType": "OPENAI_COMPATIBLE_VISION",
+  "baseUrl": null,
+  "modelId": null,
+  "credentialRef": null,
+  "visionInputMode": "UNVERIFIED",
+  "structuredMode": "UNVERIFIED",
+  "thinkingMode": null,
+  "temperature": null,
+  "maxOutputTokens": null,
+  "stream": false,
+  "connectTimeoutMs": 10000,
+  "requestTimeoutMs": 60000,
+  "maxRetries": 0,
+  "capabilityVerification": {
+    "status": "NOT_TESTED",
+    "testedAt": null,
+    "configDigest": null,
+    "imagePassed": false,
+    "structuredOutputPassed": false
+  },
+  "pricing": {
+    "currency": "CNY",
+    "inputPerMillion": null,
+    "outputPerMillion": null,
+    "verifiedAt": null
+  },
+  "notes": "配置真实地域端点和有视觉能力的modelId后测试；不能把本示例当可用API配置。不含Key，密钥仅通过本地安全界面设置。"
+}

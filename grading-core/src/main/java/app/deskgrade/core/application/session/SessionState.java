@@ -1,0 +1,23 @@
+package app.deskgrade.core.application.session;
+
+public enum SessionState {
+  IDLE,
+  PRECHECK,
+  WAIT_READY,
+  CAPTURING,
+  GRADING,
+  VALIDATING,
+  BEFORE_INPUT,
+  FILLING,
+  VERIFYING_SCORE,
+  SUBMIT_PREPARED,
+  SUBMIT_SENT,
+  WAIT_ACK,
+  NAVIGATING,
+  WAIT_NEXT,
+  PAUSED,
+  SUBMISSION_UNKNOWN,
+  STOPPED,
+  COMPLETED,
+  FAILED
+}

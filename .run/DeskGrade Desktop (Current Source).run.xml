@@ -1,0 +1,12 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="DeskGrade 当前源码" type="Application" factoryName="Application">
+    <option name="MAIN_CLASS_NAME" value="app.deskgrade.desktop.Launcher" />
+    <module name="grading-desktop" />
+    <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+    <option name="VM_PARAMETERS" value="-Dfile.encoding=UTF-8 &quot;-Djdk.net.unixdomain.tmpdir=$PROJECT_DIR$/local-data/socket-temp&quot; --module-path &quot;$PROJECT_DIR$/grading-desktop/target/lib&quot; --add-modules javafx.controls,javafx.web" />
+    <method v="2">
+      <option name="Maven.BeforeRunTask" enabled="true" file="$PROJECT_DIR$/pom.xml" goal="-B -ntp verify" />
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>
